@@ -37,12 +37,12 @@ const initialSchedule = [
     ]},
   { day: "SAT", date: "22 NOV", classes: [
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 500K)", instructor: "ADITYA", isAdvanced: true },
+      { time: "09:00 - 11:00", name: "ADVANCE CLASS (150 min) (DROP IN 500K)", instructor: "ADITYA"},
       { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
     ]},
   { day: "SUN", date: "23 NOV", classes: [
       "OFF",
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 500K)", instructor: "ADITYA", isAdvanced: true },
+      { time: "09:00 - 11:00", name: "ADVANCE CLASS (150 min) (DROP IN 500K)", instructor: "ADITYA"},
       "OFF",
     ]},
 ];
