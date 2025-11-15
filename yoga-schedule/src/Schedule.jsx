@@ -10,39 +10,39 @@ import logoImg from "./logo.jpg";
 
 /** @type {DaySchedule[]} */
 const initialSchedule = [
-  { day: "MON", date: "10 NOV", classes: [
+  { day: "MON", date: "17 NOV", classes: [
       { time: "07:15 - 08:15", name: "WHEEL YOGA", instructor: "RANA" },
       "OFF",
       { time: "18:00 - 19:00", name: "HATHA YOGA", instructor: "RANA" },
     ]},
-  { day: "TUE", date: "11 NOV", classes: [
+  { day: "TUE", date: "18 NOV", classes: [
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "SHOULDER & BACK BENDING", instructor: "SINGH" },
     ]},
-  { day: "WED", date: "12 NOV", classes: [
+  { day: "WED", date: "19 NOV", classes: [
       { time: "07:15 - 08:15", name: "SHOULDER TWISTING", instructor: "RANA" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "ZULKA" },
     ]},
-  { day: "THU", date: "13 NOV", classes: [
+  { day: "THU", date: "20 NOV", classes: [
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
     ]},
-  { day: "FRI", date: "14 NOV", classes: [
+  { day: "FRI", date: "21 NOV", classes: [
       { time: "07:15 - 08:15", name: "BLOCK YOGA", instructor: "RANA" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SINGH" },
     ]},
-  { day: "SAT", date: "15 NOV", classes: [
+  { day: "SAT", date: "22 NOV", classes: [
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA", isAdvanced: true },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 500K)", instructor: "ADITYA", isAdvanced: true },
       { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
     ]},
-  { day: "SUN", date: "16 NOV", classes: [
+  { day: "SUN", date: "23 NOV", classes: [
       "OFF",
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA", isAdvanced: true },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 500K)", instructor: "ADITYA", isAdvanced: true },
       "OFF",
     ]},
 ];
