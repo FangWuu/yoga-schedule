@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import headerBg from "./background3.jpg";
 import bodyBg from "./background3.jpg";
-import footerBg from "./background3.jpg"; // 🔹 background cho footer
+import footerBg from "./background3.jpg";
 import logoImg from "./logo.jpg";
 
 /** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
@@ -13,46 +13,76 @@ const initialSchedule = [
   { day: "MON", date: "10 NOV", classes: [
       { time: "07:15 - 08:15", name: "WHEEL YOGA", instructor: "RANA" },
       "OFF",
-      { time: "17:45 - 18:45", name: "HATHA YOGA", instructor: "RANA" },
+      { time: "18:00 - 19:00", name: "HATHA YOGA", instructor: "RANA" },
     ]},
   { day: "TUE", date: "11 NOV", classes: [
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA" },
-      { time: "17:45 - 18:45", name: "SHOULDER & BACK BENDING", instructor: "SINGH" },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      { time: "18:00 - 19:00", name: "SHOULDER & BACK BENDING", instructor: "SINGH" },
     ]},
   { day: "WED", date: "12 NOV", classes: [
       { time: "07:15 - 08:15", name: "SHOULDER TWISTING", instructor: "RANA" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA" },
-      { time: "17:45 - 18:45", name: "HIP OPENING", instructor: "ZULKA" },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "ZULKA" },
     ]},
   { day: "THU", date: "13 NOV", classes: [
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA" },
-      { time: "17:45 - 18:45", name: "BALANCE YOGA", instructor: "RANA" },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
     ]},
   { day: "FRI", date: "14 NOV", classes: [
       { time: "07:15 - 08:15", name: "BLOCK YOGA", instructor: "RANA" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA" },
-      { time: "17:45 - 18:45", name: "BACK BENDING", instructor: "SINGH" },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SINGH" },
     ]},
   { day: "SAT", date: "15 NOV", classes: [
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA", isAdvanced: true },
-      { time: "17:45 - 18:45", name: "HIP OPENING", instructor: "SINGH" },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA", isAdvanced: true },
+      { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
     ]},
   { day: "SUN", date: "16 NOV", classes: [
       "OFF",
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA", instructor: "ADITYA", isAdvanced: true },
+      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA", isAdvanced: true },
       "OFF",
     ]},
 ];
 
+// 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
+function renderClassName(name, goldTextStyle) {
+  const match = name.match(/^(.*?)(\s*\(.*\))/); // bắt phần đầu + phần trong ngoặc
+  if (!match) {
+    return (
+      <span
+        className="text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        style={goldTextStyle}
+      >
+        {name}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      <span
+        className="block text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        style={goldTextStyle}
+      >
+        {match[1]}
+      </span>
+      <span
+        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5"
+        style={goldTextStyle}
+      >
+        {match[2]}
+      </span>
+    </>
+  );
+}
+
 export default function App() {
-  // state cho schedule (editable)
   const [data, setData] = useState(initialSchedule);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Nạp Google Fonts cho Vite/React
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -62,10 +92,8 @@ export default function App() {
     return () => document.head.removeChild(link);
   }, []);
 
-  // vùng chụp + tải PNG
   const contentRef = useRef(null);
 
-  // style chữ vàng kim
   const goldTextStyle = {
     backgroundImage: "linear-gradient(180deg,#fdf3c4,#f5d76e,#d4a017)",
     WebkitBackgroundClip: "text",
@@ -77,7 +105,6 @@ export default function App() {
     textShadow: "0 0 1px rgba(0,0,0,0.6), 0 0 3px rgba(255,215,0,0.55)",
   };
 
-  // đổi nội dung 1 class
   const handleClassChange = (dayIndex, classIndex, field, value) => {
     setData(prev => {
       const copy = prev.map(day => ({
@@ -97,7 +124,6 @@ export default function App() {
     });
   };
 
-  // đổi day / date (MON / 10 NOV)
   const handleDayFieldChange = (dayIndex, field, value) => {
     setData(prev => {
       const copy = prev.map(day => ({
@@ -149,7 +175,7 @@ export default function App() {
         className="w-[905px] h-[1280px] bg-white shadow-2xl rounded-2xl overflow-hidden grid grid-rows-[auto,1fr,auto]"
         style={{ fontFamily: "'Inter', ui-sans-serif, system-ui" }}
       >
-        {/* Header với ảnh nền + logo góc phải */}
+        {/* Header */}
         <div className="relative h-[260px] overflow-hidden rounded-t-2xl">
           <img
             src={headerBg}
@@ -252,7 +278,7 @@ export default function App() {
                                   }
                                 />
                                 <input
-                                  className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg.black/20 text-amber-100 text-center"
+                                  className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                   value={classItem.name}
                                   onChange={(e) =>
                                     handleClassChange(idx, classIdx, "name", e.target.value)
@@ -268,7 +294,7 @@ export default function App() {
                               </>
                             ) : (
                               <>
-                                {/* Giờ – vàng kim */}
+                                {/* Giờ */}
                                 <div
                                   className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none"
                                   style={{
@@ -278,17 +304,16 @@ export default function App() {
                                 >
                                   {classItem.time}
                                 </div>
-                                {/* Tên lớp – vàng kim */}
+                                {/* Tên lớp + phần ngoặc nhỏ hơn */}
                                 <div
-                                  className="text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+                                  className="leading-snug tracking-wide text-center"
                                   style={{
-                                    ...goldTextStyle,
                                     fontFamily: "'Montserrat','Inter',ui-sans-serif",
                                   }}
                                 >
-                                  {classItem.name}
+                                  {renderClassName(classItem.name, goldTextStyle)}
                                 </div>
-                                {/* Giáo viên – vàng kim */}
+                                {/* Giáo viên */}
                                 <div
                                   className="text-[11.5px] font-semibold tracking-widest mt-1"
                                   style={{
@@ -316,7 +341,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Footer với background5.jpg */}
+        {/* Footer */}
         <div
           className="relative border-t border-gray-200"
           style={{
@@ -325,7 +350,6 @@ export default function App() {
             backgroundPosition: "center",
           }}
         >
-          {/* overlay trắng nhẹ để chữ dễ đọc */}
           <div className="absolute inset-0 bg-white/80" />
           <div className="relative px-12 py-8">
             <div className="grid grid-cols-2 gap-8">
