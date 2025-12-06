@@ -11,34 +11,46 @@ import logoImg from "./logo.jpg";
 /** @type {DaySchedule[]} */
 const initialSchedule = [
   { day: "MON", date: "17 NOV", classes: [
+      { time: "06:00 - 07:00", name: "MIX YOGA" },                    // không instructor
       { time: "07:15 - 08:15", name: "WHEEL YOGA", instructor: "RANA" },
       "OFF",
       { time: "18:00 - 19:00", name: "HATHA YOGA", instructor: "RANA" },
+      { time: "19:15 - 20:15", name: "MIX YOGA" },                    // không instructor
     ]},
   { day: "TUE", date: "18 NOV", classes: [
+      { time: "06:00 - 07:00", name: "POWER YOGA" },                  // không instructor
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "SHOULDER & BACK BENDING", instructor: "SINGH" },
+      { time: "19:15 - 20:15", name: "POWER YOGA" },                  // không instructor
     ]},
   { day: "WED", date: "19 NOV", classes: [
+      { time: "06:00 - 07:00", name: "HATHA YOGA" },                  // không instructor
       { time: "07:15 - 08:15", name: "SHOULDER TWISTING", instructor: "RANA" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
-      { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "ZULKA" },
+      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
+      { time: "19:15 - 20:15", name: "HATHA YOGA" },                  // không instructor
     ]},
   { day: "THU", date: "20 NOV", classes: [
+      { time: "06:00 - 07:00", name: "HIP OPENING" },                 // không instructor
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
+      { time: "19:15 - 20:15", name: "HIP OPENING" },                 // không instructor
     ]},
   { day: "FRI", date: "21 NOV", classes: [
+      { time: "06:00 - 07:00", name: "BACK BENDING" },                // không instructor
       { time: "07:15 - 08:15", name: "BLOCK YOGA", instructor: "RANA" },
       { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SINGH" },
+      { time: "19:15 - 20:15", name: "BACK BENDING" },                // không instructor
     ]},
   { day: "SAT", date: "22 NOV", classes: [
+      { time: "06:00 - 07:00", name: "BASIC YOGA" },                  // không instructor
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "09:00 - 11:00", name: "ADVANCE CLASS (150 min) (DROP IN 500K)", instructor: "ADITYA"},
       { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
+      { time: "19:15 - 20:15", name: "BASIC YOGA" },                  // không instructor
     ]},
   { day: "SUN", date: "23 NOV", classes: [
       "OFF",
@@ -46,6 +58,8 @@ const initialSchedule = [
       "OFF",
     ]},
 ];
+
+
 
 // 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
 function renderClassName(name, goldTextStyle) {
