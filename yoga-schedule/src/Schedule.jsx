@@ -10,56 +10,150 @@ import logoImg from "./logo.jpg";
 
 /** @type {DaySchedule[]} */
 const initialSchedule = [
-  { day: "MON", date: "17 NOV", classes: [
-      { time: "06:00 - 07:00", name: "MIX YOGA" },                    // không instructor
+  {
+    day: "MON",
+    date: "17 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "MIX YOGA" }, // không instructor
       { time: "07:15 - 08:15", name: "WHEEL YOGA", instructor: "RANA" },
       "OFF",
       { time: "18:00 - 19:00", name: "HATHA YOGA", instructor: "RANA" },
-      { time: "19:15 - 20:15", name: "MIX YOGA" },                    // không instructor
-    ]},
-  { day: "TUE", date: "18 NOV", classes: [
-      { time: "06:00 - 07:00", name: "POWER YOGA" },                  // không instructor
+      { time: "19:15 - 20:15", name: "MIX YOGA" }, // không instructor
+    ],
+  },
+  {
+    day: "TUE",
+    date: "18 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "POWER YOGA" }, // không instructor
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
-      { time: "18:00 - 19:00", name: "SHOULDER & BACK BENDING", instructor: "SINGH" },
-      { time: "19:15 - 20:15", name: "POWER YOGA" },                  // không instructor
-    ]},
-  { day: "WED", date: "19 NOV", classes: [
-      { time: "06:00 - 07:00", name: "HATHA YOGA" },                  // không instructor
+      {
+        time: "09:00 - 11:00",
+        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        instructor: "ADITYA",
+      },
+      {
+        time: "18:00 - 19:00",
+        name: "SHOULDER & BACK BENDING",
+        instructor: "SINGH",
+      },
+      { time: "19:15 - 20:15", name: "POWER YOGA" }, // không instructor
+    ],
+  },
+  {
+    day: "WED",
+    date: "19 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "HATHA YOGA" }, // không instructor
       { time: "07:15 - 08:15", name: "SHOULDER TWISTING", instructor: "RANA" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      {
+        time: "09:00 - 11:00",
+        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        instructor: "ADITYA",
+      },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
-      { time: "19:15 - 20:15", name: "HATHA YOGA" },                  // không instructor
-    ]},
-  { day: "THU", date: "20 NOV", classes: [
-      { time: "06:00 - 07:00", name: "HIP OPENING" },                 // không instructor
+      { time: "19:15 - 20:15", name: "HATHA YOGA" }, // không instructor
+    ],
+  },
+  {
+    day: "THU",
+    date: "20 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "HIP OPENING" }, // không instructor
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      {
+        time: "09:00 - 11:00",
+        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        instructor: "ADITYA",
+      },
       { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
-      { time: "19:15 - 20:15", name: "HIP OPENING" },                 // không instructor
-    ]},
-  { day: "FRI", date: "21 NOV", classes: [
-      { time: "06:00 - 07:00", name: "BACK BENDING" },                // không instructor
+      { time: "19:15 - 20:15", name: "HIP OPENING" }, // không instructor
+    ],
+  },
+  {
+    day: "FRI",
+    date: "21 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "BACK BENDING" }, // không instructor
       { time: "07:15 - 08:15", name: "BLOCK YOGA", instructor: "RANA" },
-      { time: "09:00 - 11:00", name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)", instructor: "ADITYA" },
+      {
+        time: "09:00 - 11:00",
+        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        instructor: "ADITYA",
+      },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SINGH" },
-      { time: "19:15 - 20:15", name: "BACK BENDING" },                // không instructor
-    ]},
-  { day: "SAT", date: "22 NOV", classes: [
-      { time: "06:00 - 07:00", name: "BASIC YOGA" },                  // không instructor
+      { time: "19:15 - 20:15", name: "BACK BENDING" }, // không instructor
+    ],
+  },
+  {
+    day: "SAT",
+    date: "22 NOV",
+    classes: [
+      { time: "06:00 - 07:00", name: "BASIC YOGA" }, // không instructor
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
-      { time: "09:00 - 11:00", name: "ADVANCE CLASS (150 min) (DROP IN 500K)", instructor: "ADITYA"},
+      {
+        time: "09:00 - 11:00",
+        name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
+        instructor: "ADITYA",
+      },
       { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
-      { time: "19:15 - 20:15", name: "BASIC YOGA" },                  // không instructor
-    ]},
-  { day: "SUN", date: "23 NOV", classes: [
+      { time: "19:15 - 20:15", name: "BASIC YOGA" }, // không instructor
+    ],
+  },
+  {
+    day: "SUN",
+    date: "23 NOV",
+    classes: [
       "OFF",
-      { time: "09:00 - 11:00", name: "ADVANCE CLASS (150 min) (DROP IN 500K)", instructor: "ADITYA"},
+      {
+        time: "09:00 - 11:00",
+        name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
+        instructor: "ADITYA",
+      },
       "OFF",
-    ]},
+    ],
+  },
 ];
 
+// ✅ Week date auto-update (type any date in the week, auto fills MON..SUN)
+// Parse dd/mm/yyyy -> Date (local time). Return null if invalid.
+function parseDDMMYYYY(input) {
+  const m = input.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!m) return null;
 
+  const dd = Number(m[1]);
+  const mm = Number(m[2]);
+  const yyyy = Number(m[3]);
+
+  // create at noon to avoid DST edge cases
+  const d = new Date(yyyy, mm - 1, dd, 12, 0, 0, 0);
+
+  // validate round-trip (reject 31/02/2026 etc.)
+  if (
+    d.getFullYear() !== yyyy ||
+    d.getMonth() !== mm - 1 ||
+    d.getDate() !== dd
+  ) {
+    return null;
+  }
+  return d;
+}
+
+function formatDayDate(dateObj) {
+  // e.g. "29 DEC"
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = new Intl.DateTimeFormat("en", { month: "short" })
+    .format(dateObj)
+    .toUpperCase();
+  return `${day} ${month}`;
+}
+
+// Monday-based index: MON=0 ... SUN=6
+function getMondayIndex(dateObj) {
+  // JS: Sun=0, Mon=1, ... Sat=6
+  const js = dateObj.getDay();
+  return (js + 6) % 7; // Mon->0, Tue->1, ... Sun->6
+}
 
 // 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
 function renderClassName(name, goldTextStyle) {
@@ -97,6 +191,10 @@ export default function App() {
   const [data, setData] = useState(initialSchedule);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Week auto-update input
+  const [weekInput, setWeekInput] = useState("");
+  const [weekError, setWeekError] = useState("");
+
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -120,8 +218,8 @@ export default function App() {
   };
 
   const handleClassChange = (dayIndex, classIndex, field, value) => {
-    setData(prev => {
-      const copy = prev.map(day => ({
+    setData((prev) => {
+      const copy = prev.map((day) => ({
         ...day,
         classes: [...day.classes],
       }));
@@ -139,8 +237,8 @@ export default function App() {
   };
 
   const handleDayFieldChange = (dayIndex, field, value) => {
-    setData(prev => {
-      const copy = prev.map(day => ({
+    setData((prev) => {
+      const copy = prev.map((day) => ({
         ...day,
         classes: [...day.classes],
       }));
@@ -152,6 +250,28 @@ export default function App() {
 
       return copy;
     });
+  };
+
+  const updateWeekFromAnyDate = (input) => {
+    const picked = parseDDMMYYYY(input);
+    if (!picked) {
+      setWeekError("Invalid date. Use dd/mm/yyyy (e.g. 29/12/2025).");
+      return;
+    }
+    setWeekError("");
+
+    const offsetFromMon = getMondayIndex(picked);
+    const monday = new Date(picked);
+    monday.setDate(picked.getDate() - offsetFromMon);
+
+    // Update only the "date" field, keep classes unchanged
+    setData((prev) =>
+      prev.map((dayObj, i) => {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        return { ...dayObj, date: formatDayDate(d) };
+      })
+    );
   };
 
   const handleDownload = async () => {
@@ -168,9 +288,36 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
       {/* nút ngoài vùng chụp */}
-      <div className="fixed top-4 right-4 z-50 flex gap-2">
+      <div className="fixed top-4 right-4 z-50 flex gap-2 items-center">
+        {/* Week input: type any date in the week (dd/mm/yyyy) to auto-update MON..SUN */}
+        <div className="flex flex-col items-end">
+          <div className="flex gap-2 items-center">
+            <input
+              value={weekInput}
+              onChange={(e) => setWeekInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") updateWeekFromAnyDate(weekInput);
+              }}
+              placeholder="dd/mm/yyyy (e.g. 29/12/2025)"
+              className="w-[220px] rounded-full px-3 py-1 text-xs bg-white shadow ring-1 ring-black/10"
+            />
+            <button
+              onClick={() => updateWeekFromAnyDate(weekInput)}
+              className="rounded-full px-3 py-1 text-xs font-semibold bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
+            >
+              Set week
+            </button>
+          </div>
+
+          {weekError ? (
+            <div className="mt-1 text-[11px] text-red-600 bg-white/80 px-2 py-1 rounded">
+              {weekError}
+            </div>
+          ) : null}
+        </div>
+
         <button
-          onClick={() => setIsEditing(e => !e)}
+          onClick={() => setIsEditing((e) => !e)}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-900 shadow ring-1 ring-amber-300 hover:bg-amber-200"
         >
           {isEditing ? "✅ Done Editing" : "✏️ Edit Schedule"}
@@ -288,21 +435,36 @@ export default function App() {
                                   className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                   value={classItem.time}
                                   onChange={(e) =>
-                                    handleClassChange(idx, classIdx, "time", e.target.value)
+                                    handleClassChange(
+                                      idx,
+                                      classIdx,
+                                      "time",
+                                      e.target.value
+                                    )
                                   }
                                 />
                                 <input
                                   className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                   value={classItem.name}
                                   onChange={(e) =>
-                                    handleClassChange(idx, classIdx, "name", e.target.value)
+                                    handleClassChange(
+                                      idx,
+                                      classIdx,
+                                      "name",
+                                      e.target.value
+                                    )
                                   }
                                 />
                                 <input
                                   className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                   value={classItem.instructor}
                                   onChange={(e) =>
-                                    handleClassChange(idx, classIdx, "instructor", e.target.value)
+                                    handleClassChange(
+                                      idx,
+                                      classIdx,
+                                      "instructor",
+                                      e.target.value
+                                    )
                                   }
                                 />
                               </>
@@ -322,23 +484,31 @@ export default function App() {
                                 <div
                                   className="leading-snug tracking-wide text-center"
                                   style={{
-                                    fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                    fontFamily:
+                                      "'Montserrat','Inter',ui-sans-serif",
                                   }}
                                 >
-                                  {renderClassName(classItem.name, goldTextStyle)}
+                                  {renderClassName(
+                                    classItem.name,
+                                    goldTextStyle
+                                  )}
                                 </div>
                                 {/* Giáo viên */}
                                 <div
                                   className="text-[11.5px] font-semibold tracking-widest mt-1"
                                   style={{
                                     ...goldTextStyle,
-                                    fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                    fontFamily:
+                                      "'Montserrat','Inter',ui-sans-serif",
                                   }}
                                 >
                                   {classItem.instructor}
                                 </div>
                                 {classItem.isAdvanced && (
-                                  <div className="text-[11px] mt-1" style={goldTextStyle}>
+                                  <div
+                                    className="text-[11px] mt-1"
+                                    style={goldTextStyle}
+                                  >
                                     (ADV CLASS)
                                   </div>
                                 )}
@@ -377,7 +547,9 @@ export default function App() {
                 <ul className="space-y-2 text-[13px] text-gray-700 leading-relaxed">
                   <li className="flex gap-2">
                     <span className="text-gray-400">1.</span>
-                    <span>Please maintain silence – no chit-chat during class.</span>
+                    <span>
+                      Please maintain silence – no chit-chat during class.
+                    </span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-gray-400">2.</span>
@@ -400,7 +572,9 @@ export default function App() {
                   <p>111 Dao Duy Tu, Dien Hong Ward</p>
                   <p>District 10, HCMC</p>
                   <p>0334644696 (Thuy)</p>
-                  <p className="pt-2 text-gray-900 font-semibold">www.yogagoals.vn</p>
+                  <p className="pt-2 text-gray-900 font-semibold">
+                    www.yogagoals.vn
+                  </p>
                 </div>
               </div>
             </div>
