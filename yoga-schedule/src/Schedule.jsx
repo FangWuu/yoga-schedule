@@ -4,10 +4,8 @@ import headerBg from "./background3.jpg";
 import bodyBg from "./background3.jpg";
 import footerBg from "./background3.jpg";
 import logoImg from "./logo.jpg";
-
 /** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
 /** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
-
 /** @type {DaySchedule[]} */
 const initialSchedule = [
   {
@@ -104,30 +102,26 @@ const initialSchedule = [
     day: "SUN",
     date: "23 NOV",
     classes: [
-      "OFF",
+      { time: "", name: "OFF", instructor: "" },                    // ← ô 1 (đã chuyển thành object)
       {
         time: "09:00 - 11:00",
         name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
         instructor: "ADITYA",
       },
-      "OFF",
+      { time: "", name: "OFF", instructor: "" },                    // ← ô 3 (đã chuyển thành object)
     ],
   },
 ];
-
 // ✅ Week date auto-update (type any date in the week, auto fills MON..SUN)
 // Parse dd/mm/yyyy -> Date (local time). Return null if invalid.
 function parseDDMMYYYY(input) {
   const m = input.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
   if (!m) return null;
-
   const dd = Number(m[1]);
   const mm = Number(m[2]);
   const yyyy = Number(m[3]);
-
   // create at noon to avoid DST edge cases
   const d = new Date(yyyy, mm - 1, dd, 12, 0, 0, 0);
-
   // validate round-trip (reject 31/02/2026 etc.)
   if (
     d.getFullYear() !== yyyy ||
@@ -138,7 +132,6 @@ function parseDDMMYYYY(input) {
   }
   return d;
 }
-
 function formatDayDate(dateObj) {
   // e.g. "29 DEC"
   const day = String(dateObj.getDate()).padStart(2, "0");
@@ -147,14 +140,12 @@ function formatDayDate(dateObj) {
     .toUpperCase();
   return `${day} ${month}`;
 }
-
 // Monday-based index: MON=0 ... SUN=6
 function getMondayIndex(dateObj) {
   // JS: Sun=0, Mon=1, ... Sat=6
   const js = dateObj.getDay();
   return (js + 6) % 7; // Mon->0, Tue->1, ... Sun->6
 }
-
 // 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
 function renderClassName(name, goldTextStyle) {
   const match = name.match(/^(.*?)(\s*\(.*\))/); // bắt phần đầu + phần trong ngoặc
@@ -168,7 +159,6 @@ function renderClassName(name, goldTextStyle) {
       </span>
     );
   }
-
   return (
     <>
       <span
@@ -186,15 +176,12 @@ function renderClassName(name, goldTextStyle) {
     </>
   );
 }
-
 export default function App() {
   const [data, setData] = useState(initialSchedule);
   const [isEditing, setIsEditing] = useState(false);
-
   // Week auto-update input
   const [weekInput, setWeekInput] = useState("");
   const [weekError, setWeekError] = useState("");
-
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -203,35 +190,30 @@ export default function App() {
     document.head.appendChild(link);
     return () => document.head.removeChild(link);
   }, []);
-
   const contentRef = useRef(null);
-
   const goldTextStyle = {
     backgroundImage: "linear-gradient(180deg,#fdf3c4,#f5d76e,#d4a017)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   };
-
   const offGoldStyle = {
     color: "#f6d26b",
     textShadow: "0 0 1px rgba(0,0,0,0.6), 0 0 3px rgba(255,215,0,0.55)",
   };
 
+  // ====================== SỬA: BỎ KIỂM TRA "OFF" ======================
   const handleClassChange = (dayIndex, classIndex, field, value) => {
     setData((prev) => {
       const copy = prev.map((day) => ({
         ...day,
         classes: [...day.classes],
       }));
-
       const item = copy[dayIndex].classes[classIndex];
-      if (item === "OFF") return prev;
-
+      // ĐÃ BỎ: if (item === "OFF") return prev;
       copy[dayIndex].classes[classIndex] = {
         ...item,
         [field]: value,
       };
-
       return copy;
     });
   };
@@ -242,16 +224,13 @@ export default function App() {
         ...day,
         classes: [...day.classes],
       }));
-
       copy[dayIndex] = {
         ...copy[dayIndex],
         [field]: value,
       };
-
       return copy;
     });
   };
-
   const updateWeekFromAnyDate = (input) => {
     const picked = parseDDMMYYYY(input);
     if (!picked) {
@@ -259,11 +238,9 @@ export default function App() {
       return;
     }
     setWeekError("");
-
     const offsetFromMon = getMondayIndex(picked);
     const monday = new Date(picked);
     monday.setDate(picked.getDate() - offsetFromMon);
-
     // Update only the "date" field, keep classes unchanged
     setData((prev) =>
       prev.map((dayObj, i) => {
@@ -273,7 +250,6 @@ export default function App() {
       })
     );
   };
-
   const handleDownload = async () => {
     const node = contentRef.current;
     if (!node) return;
@@ -284,7 +260,6 @@ export default function App() {
     link.href = dataUrl;
     link.click();
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
       {/* nút ngoài vùng chụp */}
@@ -308,14 +283,12 @@ export default function App() {
               Set week
             </button>
           </div>
-
           {weekError ? (
             <div className="mt-1 text-[11px] text-red-600 bg-white/80 px-2 py-1 rounded">
               {weekError}
             </div>
           ) : null}
         </div>
-
         <button
           onClick={() => setIsEditing((e) => !e)}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-900 shadow ring-1 ring-amber-300 hover:bg-amber-200"
@@ -329,7 +302,6 @@ export default function App() {
           Download PNG
         </button>
       </div>
-
       {/* Poster 905×1280 */}
       <div
         ref={contentRef}
@@ -357,7 +329,6 @@ export default function App() {
               </h2>
               <div className="h-1 w-28 bg-black/60 mt-4 rounded-full" />
             </div>
-
             <img
               src={logoImg}
               alt="Yoga Center Logo"
@@ -365,7 +336,6 @@ export default function App() {
             />
           </div>
         </div>
-
         {/* Body */}
         <div
           className="px-6 py-8"
@@ -411,110 +381,89 @@ export default function App() {
                     </>
                   )}
                 </div>
-
                 {/* Classes */}
                 <div className="bg-[#D3B683] rounded-b-xl p-2 border border-[#c9a463] border-t-0 h-full box-border overflow-hidden min-w-0">
                   <ul className="flex flex-col h-full gap-2 list-none m-0 p-0">
                     {day.classes.map((classItem, classIdx) => (
                       <li key={classIdx} className="flex-1 flex items-stretch">
-                        {classItem === "OFF" ? (
-                          <div
-                            className="flex-1 flex items-center justify-center rounded-lg bg-[#3b2b1e] text-[15px] font-extrabold tracking-widest"
-                            style={{
-                              ...offGoldStyle,
-                              fontFamily: "'Montserrat','Inter',ui-sans-serif",
-                            }}
-                          >
-                            OFF
+                        {/* ====================== SỬA: LUÔN CHO EDIT ====================== */}
+                        {isEditing ? (
+                          <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                            <input
+                              className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                              value={classItem.time || ""}
+                              onChange={(e) =>
+                                handleClassChange(idx, classIdx, "time", e.target.value)
+                              }
+                              placeholder="Giờ"
+                            />
+                            <input
+                              className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                              value={classItem.name || ""}
+                              onChange={(e) =>
+                                handleClassChange(idx, classIdx, "name", e.target.value)
+                              }
+                              placeholder="Tên lớp"
+                            />
+                            <input
+                              className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                              value={classItem.instructor || ""}
+                              onChange={(e) =>
+                                handleClassChange(idx, classIdx, "instructor", e.target.value)
+                              }
+                              placeholder="Giáo viên"
+                            />
                           </div>
                         ) : (
-                          <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
-                            {isEditing ? (
-                              <>
-                                <input
-                                  className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                                  value={classItem.time}
-                                  onChange={(e) =>
-                                    handleClassChange(
-                                      idx,
-                                      classIdx,
-                                      "time",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                                <input
-                                  className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                                  value={classItem.name}
-                                  onChange={(e) =>
-                                    handleClassChange(
-                                      idx,
-                                      classIdx,
-                                      "name",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                                <input
-                                  className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                                  value={classItem.instructor}
-                                  onChange={(e) =>
-                                    handleClassChange(
-                                      idx,
-                                      classIdx,
-                                      "instructor",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                              </>
-                            ) : (
-                              <>
-                                {/* Giờ */}
-                                <div
-                                  className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none"
-                                  style={{
-                                    ...goldTextStyle,
-                                    fontVariantNumeric: "tabular-nums",
-                                  }}
-                                >
-                                  {classItem.time}
+                          /* ====================== NORMAL MODE (giữ nguyên kích thước) ====================== */
+                          classItem.name === "OFF" ? (
+                            <div
+                              className="flex-1 flex items-center justify-center rounded-lg bg-[#3b2b1e] text-[15px] font-extrabold tracking-widest"
+                              style={{
+                                ...offGoldStyle,
+                                fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                              }}
+                            >
+                              OFF
+                            </div>
+                          ) : (
+                            <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                              {/* Giờ */}
+                              <div
+                                className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none"
+                                style={{
+                                  ...goldTextStyle,
+                                  fontVariantNumeric: "tabular-nums",
+                                }}
+                              >
+                                {classItem.time}
+                              </div>
+                              {/* Tên lớp + phần ngoặc nhỏ hơn */}
+                              <div
+                                className="leading-snug tracking-wide text-center"
+                                style={{
+                                  fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                }}
+                              >
+                                {renderClassName(classItem.name, goldTextStyle)}
+                              </div>
+                              {/* Giáo viên */}
+                              <div
+                                className="text-[11.5px] font-semibold tracking-widest mt-1"
+                                style={{
+                                  ...goldTextStyle,
+                                  fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                }}
+                              >
+                                {classItem.instructor}
+                              </div>
+                              {classItem.isAdvanced && (
+                                <div className="text-[11px] mt-1" style={goldTextStyle}>
+                                  (ADV CLASS)
                                 </div>
-                                {/* Tên lớp + phần ngoặc nhỏ hơn */}
-                                <div
-                                  className="leading-snug tracking-wide text-center"
-                                  style={{
-                                    fontFamily:
-                                      "'Montserrat','Inter',ui-sans-serif",
-                                  }}
-                                >
-                                  {renderClassName(
-                                    classItem.name,
-                                    goldTextStyle
-                                  )}
-                                </div>
-                                {/* Giáo viên */}
-                                <div
-                                  className="text-[11.5px] font-semibold tracking-widest mt-1"
-                                  style={{
-                                    ...goldTextStyle,
-                                    fontFamily:
-                                      "'Montserrat','Inter',ui-sans-serif",
-                                  }}
-                                >
-                                  {classItem.instructor}
-                                </div>
-                                {classItem.isAdvanced && (
-                                  <div
-                                    className="text-[11px] mt-1"
-                                    style={goldTextStyle}
-                                  >
-                                    (ADV CLASS)
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
+                              )}
+                            </div>
+                          )
                         )}
                       </li>
                     ))}
@@ -524,7 +473,6 @@ export default function App() {
             ))}
           </div>
         </div>
-
         {/* Footer */}
         <div
           className="relative border-t border-gray-200"
