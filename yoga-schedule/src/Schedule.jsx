@@ -102,13 +102,13 @@ const initialSchedule = [
     day: "SUN",
     date: "23 NOV",
     classes: [
-      { time: "", name: "OFF", instructor: "" },                    // ← ô 1 (đã chuyển thành object)
+      { time: "", name: "OFF", instructor: "" },                    // ← ô 1
       {
         time: "09:00 - 11:00",
         name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
         instructor: "ADITYA",
       },
-      { time: "", name: "OFF", instructor: "" },                    // ← ô 3 (đã chuyển thành object)
+      { time: "", name: "OFF", instructor: "" },                    // ← ô 3
     ],
   },
 ];
@@ -148,7 +148,11 @@ function getMondayIndex(dateObj) {
 }
 // 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
 function renderClassName(name, goldTextStyle) {
-  const match = name.match(/^(.*?)(\s*\(.*\))/); // bắt phần đầu + phần trong ngoặc
+  // ✅ SỬA BUG: phòng trường hợp name undefined
+  if (!name || typeof name !== "string") {
+    return <span style={goldTextStyle}> </span>;
+  }
+  const match = name.match(/^(.*?)(\s*\(.*\))/);
   if (!match) {
     return (
       <span
@@ -201,7 +205,6 @@ export default function App() {
     textShadow: "0 0 1px rgba(0,0,0,0.6), 0 0 3px rgba(255,215,0,0.55)",
   };
 
-  // ====================== SỬA: BỎ KIỂM TRA "OFF" ======================
   const handleClassChange = (dayIndex, classIndex, field, value) => {
     setData((prev) => {
       const copy = prev.map((day) => ({
@@ -209,7 +212,7 @@ export default function App() {
         classes: [...day.classes],
       }));
       const item = copy[dayIndex].classes[classIndex];
-      // ĐÃ BỎ: if (item === "OFF") return prev;
+      // ✅ ĐÃ BỎ KIỂM TRA OFF
       copy[dayIndex].classes[classIndex] = {
         ...item,
         [field]: value,
@@ -241,7 +244,6 @@ export default function App() {
     const offsetFromMon = getMondayIndex(picked);
     const monday = new Date(picked);
     monday.setDate(picked.getDate() - offsetFromMon);
-    // Update only the "date" field, keep classes unchanged
     setData((prev) =>
       prev.map((dayObj, i) => {
         const d = new Date(monday);
@@ -264,7 +266,6 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
       {/* nút ngoài vùng chụp */}
       <div className="fixed top-4 right-4 z-50 flex gap-2 items-center">
-        {/* Week input: type any date in the week (dd/mm/yyyy) to auto-update MON..SUN */}
         <div className="flex flex-col items-end">
           <div className="flex gap-2 items-center">
             <input
@@ -302,6 +303,7 @@ export default function App() {
           Download PNG
         </button>
       </div>
+
       {/* Poster 905×1280 */}
       <div
         ref={contentRef}
@@ -336,6 +338,7 @@ export default function App() {
             />
           </div>
         </div>
+
         {/* Body */}
         <div
           className="px-6 py-8"
@@ -381,42 +384,46 @@ export default function App() {
                     </>
                   )}
                 </div>
+
                 {/* Classes */}
                 <div className="bg-[#D3B683] rounded-b-xl p-2 border border-[#c9a463] border-t-0 h-full box-border overflow-hidden min-w-0">
                   <ul className="flex flex-col h-full gap-2 list-none m-0 p-0">
-                    {day.classes.map((classItem, classIdx) => (
-                      <li key={classIdx} className="flex-1 flex items-stretch">
-                        {/* ====================== SỬA: LUÔN CHO EDIT ====================== */}
-                        {isEditing ? (
-                          <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
-                            <input
-                              className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                              value={classItem.time || ""}
-                              onChange={(e) =>
-                                handleClassChange(idx, classIdx, "time", e.target.value)
-                              }
-                              placeholder="Giờ"
-                            />
-                            <input
-                              className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                              value={classItem.name || ""}
-                              onChange={(e) =>
-                                handleClassChange(idx, classIdx, "name", e.target.value)
-                              }
-                              placeholder="Tên lớp"
-                            />
-                            <input
-                              className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
-                              value={classItem.instructor || ""}
-                              onChange={(e) =>
-                                handleClassChange(idx, classIdx, "instructor", e.target.value)
-                              }
-                              placeholder="Giáo viên"
-                            />
-                          </div>
-                        ) : (
-                          /* ====================== NORMAL MODE (giữ nguyên kích thước) ====================== */
-                          classItem.name === "OFF" ? (
+                    {day.classes.map((classItem, classIdx) => {
+                      // ✅ SỬA BUG: kiểm tra cả string "OFF" lẫn object {name: "OFF"}
+                      const isOff =
+                        classItem === "OFF" ||
+                        (typeof classItem === "object" && classItem?.name === "OFF");
+
+                      return (
+                        <li key={classIdx} className="flex-1 flex items-stretch">
+                          {isEditing ? (
+                            <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                              <input
+                                className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                                value={classItem?.time || ""}
+                                onChange={(e) =>
+                                  handleClassChange(idx, classIdx, "time", e.target.value)
+                                }
+                                placeholder="Giờ"
+                              />
+                              <input
+                                className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                                value={classItem?.name || ""}
+                                onChange={(e) =>
+                                  handleClassChange(idx, classIdx, "name", e.target.value)
+                                }
+                                placeholder="Tên lớp"
+                              />
+                              <input
+                                className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
+                                value={classItem?.instructor || ""}
+                                onChange={(e) =>
+                                  handleClassChange(idx, classIdx, "instructor", e.target.value)
+                                }
+                                placeholder="Giáo viên"
+                              />
+                            </div>
+                          ) : isOff ? (
                             <div
                               className="flex-1 flex items-center justify-center rounded-lg bg-[#3b2b1e] text-[15px] font-extrabold tracking-widest"
                               style={{
@@ -428,7 +435,6 @@ export default function App() {
                             </div>
                           ) : (
                             <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
-                              {/* Giờ */}
                               <div
                                 className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none"
                                 style={{
@@ -438,7 +444,6 @@ export default function App() {
                               >
                                 {classItem.time}
                               </div>
-                              {/* Tên lớp + phần ngoặc nhỏ hơn */}
                               <div
                                 className="leading-snug tracking-wide text-center"
                                 style={{
@@ -447,7 +452,6 @@ export default function App() {
                               >
                                 {renderClassName(classItem.name, goldTextStyle)}
                               </div>
-                              {/* Giáo viên */}
                               <div
                                 className="text-[11.5px] font-semibold tracking-widest mt-1"
                                 style={{
@@ -463,16 +467,17 @@ export default function App() {
                                 </div>
                               )}
                             </div>
-                          )
-                        )}
-                      </li>
-                    ))}
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
         {/* Footer */}
         <div
           className="relative border-t border-gray-200"
