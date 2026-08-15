@@ -10,105 +10,103 @@ import logoImg from "./logo.jpg";
 const initialSchedule = [
   {
     day: "MON",
-    date: "17 NOV",
+    date: "10 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "MIX YOGA" }, // không instructor
-      { time: "07:15 - 08:15", name: "WHEEL YOGA", instructor: "RANA" },
+      { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SHIV" },
+      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       "OFF",
-      { time: "18:00 - 19:00", name: "HATHA YOGA", instructor: "RANA" },
-      { time: "19:15 - 20:15", name: "MIX YOGA" }, // không instructor
+      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "RANA" },
+      "OFF",
     ],
   },
   {
     day: "TUE",
-    date: "18 NOV",
+    date: "11 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "POWER YOGA" }, // không instructor
-      { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
+      { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SINGH" },
+      "OFF",
       {
         time: "09:00 - 11:00",
-        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      {
-        time: "18:00 - 19:00",
-        name: "SHOULDER & BACK BENDING",
-        instructor: "SINGH",
-      },
-      { time: "19:15 - 20:15", name: "POWER YOGA" }, // không instructor
+      { time: "18:00 - 19:00", name: "BLOCK YOGA", instructor: "SINGH" },
+      "OFF",
     ],
   },
   {
     day: "WED",
-    date: "19 NOV",
+    date: "12 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "HATHA YOGA" }, // không instructor
-      { time: "07:15 - 08:15", name: "SHOULDER TWISTING", instructor: "RANA" },
+      { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "RANA" },
+      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       {
         time: "09:00 - 11:00",
-        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
-      { time: "19:15 - 20:15", name: "HATHA YOGA" }, // không instructor
+      "OFF",
     ],
   },
   {
     day: "THU",
-    date: "20 NOV",
+    date: "13 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "HIP OPENING" }, // không instructor
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
+      "OFF",
       {
         time: "09:00 - 11:00",
-        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
-      { time: "19:15 - 20:15", name: "HIP OPENING" }, // không instructor
+      { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "SHIV" },
+      "OFF",
     ],
   },
   {
     day: "FRI",
-    date: "21 NOV",
+    date: "14 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "BACK BENDING" }, // không instructor
-      { time: "07:15 - 08:15", name: "BLOCK YOGA", instructor: "RANA" },
+      { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "RANA" },
+      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       {
         time: "09:00 - 11:00",
-        name: "MYSORE ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SINGH" },
-      { time: "19:15 - 20:15", name: "BACK BENDING" }, // không instructor
+      { time: "18:00 - 19:00", name: "SHOULDER TWISTING", instructor: "SINGH" },
+      "OFF",
     ],
   },
   {
     day: "SAT",
-    date: "22 NOV",
+    date: "15 AUG",
     classes: [
-      { time: "06:00 - 07:00", name: "BASIC YOGA" }, // không instructor
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
+      "OFF",
       {
         time: "09:00 - 11:00",
         name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
         instructor: "ADITYA",
+        isAdvanced: true,
       },
-      { time: "18:00 - 19:00", name: "HIP OPENING", instructor: "SINGH" },
-      { time: "19:15 - 20:15", name: "BASIC YOGA" }, // không instructor
+      { time: "18:00 - 19:00", name: "STICK YOGA", instructor: "SINGH" },
+      "OFF",
     ],
   },
   {
     day: "SUN",
-    date: "23 NOV",
+    date: "16 AUG",
     classes: [
-      { time: "", name: "OFF", instructor: "" },                    // ← ô 1
+      "OFF", // ← ô 1
       {
         time: "09:00 - 11:00",
         name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
         instructor: "ADITYA",
+        isAdvanced: true,
       },
-      { time: "", name: "OFF", instructor: "" },                    // ← ô 3
+      "OFF", // ← ô 3
     ],
   },
 ];
