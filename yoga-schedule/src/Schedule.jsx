@@ -1,18 +1,15 @@
 "use client";
-
 import React, { useRef, useEffect, useState } from "react";
 import headerBg from "./background3.jpg";
 import bodyBg from "./background3.jpg";
 import footerBg from "./background3.jpg";
 import logoImg from "./logo.jpg";
-
 /** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
 /** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
-
 /** @type {DaySchedule[]} */
 const initialSchedule = [
   {
-    day: "M????",
+    day: "MON",
     date: "10 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SINGH" },
@@ -129,7 +126,6 @@ const initialSchedule = [
     ],
   },
 ];
-
 // ✅ Week date auto-update
 function parseDDMMYYYY(input) {
   const m = input.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
@@ -147,7 +143,6 @@ function parseDDMMYYYY(input) {
   }
   return d;
 }
-
 function formatDayDate(dateObj) {
   const day = String(dateObj.getDate()).padStart(2, "0");
   const month = new Intl.DateTimeFormat("en", { month: "short" })
@@ -155,13 +150,11 @@ function formatDayDate(dateObj) {
     .toUpperCase();
   return `${day} ${month}`;
 }
-
 function getMondayIndex(dateObj) {
   const js = dateObj.getDay();
   return (js + 6) % 7;
 }
-
-// 🔹 Helper: tách tên lớp và phần trong ngoặc (phong cách cũ)
+// 🔹 Helper: tách tên lớp và phần trong ngoặc
 function renderClassName(name, goldTextStyle) {
   if (!name || typeof name !== "string") {
     return <span style={goldTextStyle}> </span>;
@@ -170,7 +163,7 @@ function renderClassName(name, goldTextStyle) {
   if (!match) {
     return (
       <span
-        className="text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-3"
         style={goldTextStyle}
       >
         {name}
@@ -180,13 +173,13 @@ function renderClassName(name, goldTextStyle) {
   return (
     <>
       <span
-        className="block text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-2"
         style={goldTextStyle}
       >
         {match[1]}
       </span>
       <span
-        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5"
+        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5 line-clamp-1"
         style={goldTextStyle}
       >
         {match[2]}
@@ -194,13 +187,11 @@ function renderClassName(name, goldTextStyle) {
     </>
   );
 }
-
 export default function App() {
   const [data, setData] = useState(initialSchedule);
   const [isEditing, setIsEditing] = useState(false);
   const [weekInput, setWeekInput] = useState("");
   const [weekError, setWeekError] = useState("");
-
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -209,21 +200,16 @@ export default function App() {
     document.head.appendChild(link);
     return () => document.head.removeChild(link);
   }, []);
-
   const contentRef = useRef(null);
-
-  // ✅ Gradient vàng đậm → sáng (từ trên xuống)
   const goldTextStyle = {
-    backgroundImage: "linear-gradient(180deg,#d4a017,#f5d76e,#fdf3c4)",
+    backgroundImage: "linear-gradient(180deg,#fdf3c4,#f5d76e,#d4a017)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   };
-
   const offGoldStyle = {
     color: "#f6d26b",
     textShadow: "0 0 1px rgba(0,0,0,0.6), 0 0 3px rgba(255,215,0,0.55)",
   };
-
   const handleClassChange = (dayIndex, classIndex, field, value) => {
     setData((prev) => {
       const copy = prev.map((day) => ({
@@ -238,7 +224,6 @@ export default function App() {
       return copy;
     });
   };
-
   const handleDayFieldChange = (dayIndex, field, value) => {
     setData((prev) => {
       const copy = prev.map((day) => ({
@@ -252,7 +237,6 @@ export default function App() {
       return copy;
     });
   };
-
   const updateWeekFromAnyDate = (input) => {
     const picked = parseDDMMYYYY(input);
     if (!picked) {
@@ -271,7 +255,6 @@ export default function App() {
       })
     );
   };
-
   const handleDownload = async () => {
     const node = contentRef.current;
     if (!node) return;
@@ -282,7 +265,6 @@ export default function App() {
     link.href = dataUrl;
     link.click();
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
       {/* nút ngoài vùng chụp */}
@@ -311,14 +293,12 @@ export default function App() {
             </div>
           ) : null}
         </div>
-
         <button
           onClick={() => setIsEditing((e) => !e)}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-900 shadow ring-1 ring-amber-300 hover:bg-amber-200"
         >
           {isEditing ? "✅ Done Editing" : "✏️ Edit Schedule"}
         </button>
-
         <button
           onClick={handleDownload}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
@@ -326,7 +306,6 @@ export default function App() {
           Download PNG
         </button>
       </div>
-
       {/* Poster 905×1280 */}
       <div
         ref={contentRef}
@@ -361,7 +340,6 @@ export default function App() {
             />
           </div>
         </div>
-
         {/* Body */}
         <div
           className="px-6 py-8"
@@ -407,7 +385,6 @@ export default function App() {
                     </>
                   )}
                 </div>
-
                 {/* Classes */}
                 <div className="bg-[#D3B683] rounded-b-xl p-2 border border-[#c9a463] border-t-0 h-full box-border overflow-hidden min-w-0">
                   <ul className="flex flex-col h-full gap-2 list-none m-0 p-0">
@@ -416,7 +393,6 @@ export default function App() {
                         classItem === "OFF" ||
                         (typeof classItem === "object" &&
                           classItem?.name === "OFF");
-
                       return (
                         <li
                           key={classIdx}
@@ -487,7 +463,6 @@ export default function App() {
                               >
                                 {classItem.time}
                               </div>
-
                               {/* Class name */}
                               <div
                                 className="leading-snug tracking-wide text-center min-h-0 overflow-hidden"
@@ -498,7 +473,6 @@ export default function App() {
                               >
                                 {renderClassName(classItem.name, goldTextStyle)}
                               </div>
-
                               {/* Instructor */}
                               <div
                                 className="text-[11.5px] font-semibold tracking-widest mt-1 shrink-0"
@@ -510,7 +484,6 @@ export default function App() {
                               >
                                 {classItem.instructor}
                               </div>
-
                               {classItem.isAdvanced && (
                                 <div
                                   className="text-[11px] mt-1 shrink-0"
@@ -530,7 +503,6 @@ export default function App() {
             ))}
           </div>
         </div>
-
         {/* Footer */}
         <div
           className="relative border-t border-gray-200"
