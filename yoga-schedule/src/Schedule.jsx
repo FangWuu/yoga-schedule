@@ -12,7 +12,7 @@ import logoImg from "./logo.jpg";
 /** @type {DaySchedule[]} */
 const initialSchedule = [
   {
-    day: "MON",
+    day: "M????",
     date: "10 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SINGH" },
