@@ -202,7 +202,7 @@ export default function App() {
   }, []);
   const contentRef = useRef(null);
   const goldTextStyle = {
-    backgroundImage: "linear-gradient(180deg,#fdf3c4,#f5d76e,#d4a017)",
+    backgroundImage: "linear-gradient(180deg,#d4a017,#f5d76e,#fdf3c4)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   };
