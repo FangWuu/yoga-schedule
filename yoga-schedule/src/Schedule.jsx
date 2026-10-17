@@ -20,7 +20,6 @@ const initialSchedule = [
       "OFF",
       { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
-      "OFF",
     ],
   },
   {
@@ -36,7 +35,6 @@ const initialSchedule = [
       },
       { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" },
       { time: "18:00 - 19:00", name: "BLOCK YOGA", instructor: "SINGH" },
-      "OFF",
     ],
   },
   {
@@ -52,7 +50,6 @@ const initialSchedule = [
       },
       { time: "15:00 - 16:00", name: "HATHA YOGA", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
-      "OFF",
     ],
   },
   {
@@ -72,7 +69,6 @@ const initialSchedule = [
         instructor: "RANA",
       },
       { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
-      "OFF",
     ],
   },
   {
@@ -96,7 +92,6 @@ const initialSchedule = [
         name: "SHOULDER TWISTING",
         instructor: "SINGH",
       },
-      "OFF",
     ],
   },
   {
@@ -117,7 +112,6 @@ const initialSchedule = [
         instructor: "SINGH",
       },
       { time: "18:00 - 19:00", name: "STICK YOGA", instructor: "SINGH" },
-      "OFF",
     ],
   },
   {
@@ -131,9 +125,6 @@ const initialSchedule = [
         instructor: "ADITYA",
         isAdvanced: true,
       },
-      "OFF",
-      "OFF",
-      "OFF",
       "OFF",
     ],
   },
