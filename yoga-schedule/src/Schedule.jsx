@@ -7,15 +7,20 @@ import logoImg from "./logo.jpg";
 /** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
 /** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
 /** @type {DaySchedule[]} */
+/** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
+/** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
+
+/** @type {DaySchedule[]} */
 const initialSchedule = [
   {
     day: "MON",
     date: "10 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SHIV" },
+      { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SINGH" },
       { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       "OFF",
-      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "RANA" },
+      { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" }, // ✅ MỚI
+      { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
       "OFF",
     ],
   },
@@ -23,13 +28,14 @@ const initialSchedule = [
     day: "TUE",
     date: "11 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SINGH" },
+      { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SHIV" },
       "OFF",
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" }, // ✅ MỚI
       { time: "18:00 - 19:00", name: "BLOCK YOGA", instructor: "SINGH" },
       "OFF",
     ],
@@ -38,13 +44,14 @@ const initialSchedule = [
     day: "WED",
     date: "12 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "RANA" },
+      { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
       { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      { time: "15:00 - 16:00", name: "HATHA YOGA", instructor: "SINGH" }, // ✅ MỚI
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
       "OFF",
     ],
@@ -53,14 +60,15 @@ const initialSchedule = [
     day: "THU",
     date: "13 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
+      { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
       "OFF",
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "SHIV" },
+      { time: "15:00 - 16:00", name: "HIP OPENING WITH BLOCK", instructor: "RANA" }, // ✅ MỚI
+      { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
       "OFF",
     ],
   },
@@ -75,6 +83,11 @@ const initialSchedule = [
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      {
+        time: "15:00 - 16:00",
+        name: "SHOULDER OPENING AND BACK BENDING",
+        instructor: "SINGH",
+      }, // ✅ MỚI
       { time: "18:00 - 19:00", name: "SHOULDER TWISTING", instructor: "SINGH" },
       "OFF",
     ],
@@ -91,6 +104,11 @@ const initialSchedule = [
         instructor: "ADITYA",
         isAdvanced: true,
       },
+      {
+        time: "15:00 - 16:00",
+        name: "ARM BALANCE AND CORE POWER",
+        instructor: "SINGH",
+      }, // ✅ MỚI
       { time: "18:00 - 19:00", name: "STICK YOGA", instructor: "SINGH" },
       "OFF",
     ],
@@ -99,14 +117,14 @@ const initialSchedule = [
     day: "SUN",
     date: "16 AUG",
     classes: [
-      "OFF", // ← ô 1
+      "OFF",
       {
         time: "09:00 - 11:00",
         name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
         instructor: "ADITYA",
         isAdvanced: true,
       },
-      "OFF", // ← ô 3
+      "OFF",
     ],
   },
 ];
