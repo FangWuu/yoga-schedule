@@ -65,7 +65,7 @@ const initialSchedule = [
         name: "HIP OPENING WITH BLOCK",
         instructor: "RANA",
       },
-      { time: "18:00 - 19:30", name: "ADVANCE CLASS (DROP IN 250K)", instructor: "RANA" },
+      { time: "18:00 - 19:30", name: "ADVANCE CLASS (DROP IN 250K)", instructor: "SINGH" },
     ],
   },
   {
