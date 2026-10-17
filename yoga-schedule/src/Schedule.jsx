@@ -161,35 +161,33 @@ function getMondayIndex(dateObj) {
   return (js + 6) % 7;
 }
 
-// 🔹 Helper: tách tên lớp và phần trong ngoặc
+// 🔹 Helper: tách tên lớp và phần trong ngoặc (phong cách cũ)
 function renderClassName(name, goldTextStyle) {
+  // ✅ SỬA BUG: phòng trường hợp name undefined
   if (!name || typeof name !== "string") {
     return <span style={goldTextStyle}> </span>;
   }
-
   const match = name.match(/^(.*?)(\s*\(.*\))/);
-
   if (!match) {
     return (
       <span
-        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-3"
+        className="text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
         style={goldTextStyle}
       >
         {name}
       </span>
     );
   }
-
   return (
     <>
       <span
-        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-2"
+        className="block text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
         style={goldTextStyle}
       >
         {match[1]}
       </span>
       <span
-        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5 line-clamp-1"
+        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5"
         style={goldTextStyle}
       >
         {match[2]}
