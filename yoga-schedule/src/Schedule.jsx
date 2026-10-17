@@ -1,12 +1,11 @@
 "use client";
+
 import React, { useRef, useEffect, useState } from "react";
 import headerBg from "./background3.jpg";
 import bodyBg from "./background3.jpg";
 import footerBg from "./background3.jpg";
 import logoImg from "./logo.jpg";
-/** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
-/** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
-/** @type {DaySchedule[]} */
+
 /** @typedef {{ time:string, name:string, instructor:string, isAdvanced?:boolean }} YogaClass */
 /** @typedef {{ day:string, date:string, classes: Array<YogaClass | 'OFF'> }} DaySchedule */
 
@@ -19,7 +18,7 @@ const initialSchedule = [
       { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SINGH" },
       { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       "OFF",
-      { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" }, // ✅ MỚI
+      { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
       "OFF",
     ],
@@ -35,7 +34,7 @@ const initialSchedule = [
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" }, // ✅ MỚI
+      { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" },
       { time: "18:00 - 19:00", name: "BLOCK YOGA", instructor: "SINGH" },
       "OFF",
     ],
@@ -51,7 +50,7 @@ const initialSchedule = [
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "15:00 - 16:00", name: "HATHA YOGA", instructor: "SINGH" }, // ✅ MỚI
+      { time: "15:00 - 16:00", name: "HATHA YOGA", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
       "OFF",
     ],
@@ -67,7 +66,11 @@ const initialSchedule = [
         name: "ASHTANGA (150 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
-      { time: "15:00 - 16:00", name: "HIP OPENING WITH BLOCK", instructor: "RANA" }, // ✅ MỚI
+      {
+        time: "15:00 - 16:00",
+        name: "HIP OPENING WITH BLOCK",
+        instructor: "RANA",
+      },
       { time: "18:00 - 19:00", name: "BALANCE YOGA", instructor: "RANA" },
       "OFF",
     ],
@@ -85,10 +88,14 @@ const initialSchedule = [
       },
       {
         time: "15:00 - 16:00",
-        name: "SHOULDER OPENING AND BACK BENDING",
+        name: "SHOULDER OPENING & BACK BENDING",
         instructor: "SINGH",
-      }, // ✅ MỚI
-      { time: "18:00 - 19:00", name: "SHOULDER TWISTING", instructor: "SINGH" },
+      },
+      {
+        time: "18:00 - 19:00",
+        name: "SHOULDER TWISTING",
+        instructor: "SINGH",
+      },
       "OFF",
     ],
   },
@@ -106,9 +113,9 @@ const initialSchedule = [
       },
       {
         time: "15:00 - 16:00",
-        name: "ARM BALANCE AND CORE POWER",
+        name: "ARM BALANCE & CORE POWER",
         instructor: "SINGH",
-      }, // ✅ MỚI
+      },
       { time: "18:00 - 19:00", name: "STICK YOGA", instructor: "SINGH" },
       "OFF",
     ],
@@ -125,20 +132,21 @@ const initialSchedule = [
         isAdvanced: true,
       },
       "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
     ],
   },
 ];
-// ✅ Week date auto-update (type any date in the week, auto fills MON..SUN)
-// Parse dd/mm/yyyy -> Date (local time). Return null if invalid.
+
+// ✅ Week date auto-update
 function parseDDMMYYYY(input) {
   const m = input.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
   if (!m) return null;
   const dd = Number(m[1]);
   const mm = Number(m[2]);
   const yyyy = Number(m[3]);
-  // create at noon to avoid DST edge cases
   const d = new Date(yyyy, mm - 1, dd, 12, 0, 0, 0);
-  // validate round-trip (reject 31/02/2026 etc.)
   if (
     d.getFullYear() !== yyyy ||
     d.getMonth() !== mm - 1 ||
@@ -148,47 +156,49 @@ function parseDDMMYYYY(input) {
   }
   return d;
 }
+
 function formatDayDate(dateObj) {
-  // e.g. "29 DEC"
   const day = String(dateObj.getDate()).padStart(2, "0");
   const month = new Intl.DateTimeFormat("en", { month: "short" })
     .format(dateObj)
     .toUpperCase();
   return `${day} ${month}`;
 }
-// Monday-based index: MON=0 ... SUN=6
+
 function getMondayIndex(dateObj) {
-  // JS: Sun=0, Mon=1, ... Sat=6
   const js = dateObj.getDay();
-  return (js + 6) % 7; // Mon->0, Tue->1, ... Sun->6
+  return (js + 6) % 7;
 }
-// 🔹 Helper: tách tên lớp và phần trong ngoặc, cho size nhỏ hơn
+
+// 🔹 Helper: tách tên lớp và phần trong ngoặc
 function renderClassName(name, goldTextStyle) {
-  // ✅ SỬA BUG: phòng trường hợp name undefined
   if (!name || typeof name !== "string") {
     return <span style={goldTextStyle}> </span>;
   }
+
   const match = name.match(/^(.*?)(\s*\(.*\))/);
+
   if (!match) {
     return (
       <span
-        className="text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-3"
         style={goldTextStyle}
       >
         {name}
       </span>
     );
   }
+
   return (
     <>
       <span
-        className="block text-[13.5px] font-extrabold leading-snug tracking-wide break-words"
+        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-2"
         style={goldTextStyle}
       >
         {match[1]}
       </span>
       <span
-        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5"
+        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5 line-clamp-1"
         style={goldTextStyle}
       >
         {match[2]}
@@ -196,12 +206,13 @@ function renderClassName(name, goldTextStyle) {
     </>
   );
 }
+
 export default function App() {
   const [data, setData] = useState(initialSchedule);
   const [isEditing, setIsEditing] = useState(false);
-  // Week auto-update input
   const [weekInput, setWeekInput] = useState("");
   const [weekError, setWeekError] = useState("");
+
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -210,12 +221,15 @@ export default function App() {
     document.head.appendChild(link);
     return () => document.head.removeChild(link);
   }, []);
+
   const contentRef = useRef(null);
+
   const goldTextStyle = {
     backgroundImage: "linear-gradient(180deg,#fdf3c4,#f5d76e,#d4a017)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   };
+
   const offGoldStyle = {
     color: "#f6d26b",
     textShadow: "0 0 1px rgba(0,0,0,0.6), 0 0 3px rgba(255,215,0,0.55)",
@@ -228,7 +242,6 @@ export default function App() {
         classes: [...day.classes],
       }));
       const item = copy[dayIndex].classes[classIndex];
-      // ✅ ĐÃ BỎ KIỂM TRA OFF
       copy[dayIndex].classes[classIndex] = {
         ...item,
         [field]: value,
@@ -250,6 +263,7 @@ export default function App() {
       return copy;
     });
   };
+
   const updateWeekFromAnyDate = (input) => {
     const picked = parseDDMMYYYY(input);
     if (!picked) {
@@ -268,6 +282,7 @@ export default function App() {
       })
     );
   };
+
   const handleDownload = async () => {
     const node = contentRef.current;
     if (!node) return;
@@ -278,6 +293,7 @@ export default function App() {
     link.href = dataUrl;
     link.click();
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
       {/* nút ngoài vùng chụp */}
@@ -306,12 +322,14 @@ export default function App() {
             </div>
           ) : null}
         </div>
+
         <button
           onClick={() => setIsEditing((e) => !e)}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-900 shadow ring-1 ring-amber-300 hover:bg-amber-200"
         >
           {isEditing ? "✅ Done Editing" : "✏️ Edit Schedule"}
         </button>
+
         <button
           onClick={handleDownload}
           className="rounded-full px-3 py-1 text-xs font-semibold bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
@@ -405,20 +423,28 @@ export default function App() {
                 <div className="bg-[#D3B683] rounded-b-xl p-2 border border-[#c9a463] border-t-0 h-full box-border overflow-hidden min-w-0">
                   <ul className="flex flex-col h-full gap-2 list-none m-0 p-0">
                     {day.classes.map((classItem, classIdx) => {
-                      // ✅ SỬA BUG: kiểm tra cả string "OFF" lẫn object {name: "OFF"}
                       const isOff =
                         classItem === "OFF" ||
-                        (typeof classItem === "object" && classItem?.name === "OFF");
+                        (typeof classItem === "object" &&
+                          classItem?.name === "OFF");
 
                       return (
-                        <li key={classIdx} className="flex-1 flex items-stretch">
+                        <li
+                          key={classIdx}
+                          className="flex-1 min-h-0 flex items-stretch"
+                        >
                           {isEditing ? (
-                            <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                            <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
                               <input
                                 className="w-full mb-1 text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                 value={classItem?.time || ""}
                                 onChange={(e) =>
-                                  handleClassChange(idx, classIdx, "time", e.target.value)
+                                  handleClassChange(
+                                    idx,
+                                    classIdx,
+                                    "time",
+                                    e.target.value
+                                  )
                                 }
                                 placeholder="Giờ"
                               />
@@ -426,7 +452,12 @@ export default function App() {
                                 className="w-full mb-1 text-[12px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                 value={classItem?.name || ""}
                                 onChange={(e) =>
-                                  handleClassChange(idx, classIdx, "name", e.target.value)
+                                  handleClassChange(
+                                    idx,
+                                    classIdx,
+                                    "name",
+                                    e.target.value
+                                  )
                                 }
                                 placeholder="Tên lớp"
                               />
@@ -434,25 +465,32 @@ export default function App() {
                                 className="w-full text-[11px] px-1 py-0.5 rounded bg-black/20 text-amber-100 text-center"
                                 value={classItem?.instructor || ""}
                                 onChange={(e) =>
-                                  handleClassChange(idx, classIdx, "instructor", e.target.value)
+                                  handleClassChange(
+                                    idx,
+                                    classIdx,
+                                    "instructor",
+                                    e.target.value
+                                  )
                                 }
                                 placeholder="Giáo viên"
                               />
                             </div>
                           ) : isOff ? (
                             <div
-                              className="flex-1 flex items-center justify-center rounded-lg bg-[#3b2b1e] text-[15px] font-extrabold tracking-widest"
+                              className="flex-1 min-h-0 flex items-center justify-center rounded-lg bg-[#3b2b1e] text-[15px] font-extrabold tracking-widest"
                               style={{
                                 ...offGoldStyle,
-                                fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                fontFamily:
+                                  "'Montserrat','Inter',ui-sans-serif",
                               }}
                             >
                               OFF
                             </div>
                           ) : (
-                            <div className="flex-1 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                            <div className="flex-1 min-h-0 flex flex-col items-center justify-center bg-[#3b2b1e] rounded-lg p-2 shadow-md border border-[#f5d76e]/70 text-center overflow-hidden">
+                              {/* Time */}
                               <div
-                                className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none"
+                                className="text-[12px] font-semibold mb-1 tracking-wide whitespace-nowrap overflow-hidden text-ellipsis leading-none shrink-0"
                                 style={{
                                   ...goldTextStyle,
                                   fontVariantNumeric: "tabular-nums",
@@ -460,25 +498,35 @@ export default function App() {
                               >
                                 {classItem.time}
                               </div>
+
+                              {/* Class name */}
                               <div
-                                className="leading-snug tracking-wide text-center"
+                                className="leading-snug tracking-wide text-center min-h-0 overflow-hidden"
                                 style={{
-                                  fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                  fontFamily:
+                                    "'Montserrat','Inter',ui-sans-serif",
                                 }}
                               >
                                 {renderClassName(classItem.name, goldTextStyle)}
                               </div>
+
+                              {/* Instructor */}
                               <div
-                                className="text-[11.5px] font-semibold tracking-widest mt-1"
+                                className="text-[11.5px] font-semibold tracking-widest mt-1 shrink-0"
                                 style={{
                                   ...goldTextStyle,
-                                  fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                                  fontFamily:
+                                    "'Montserrat','Inter',ui-sans-serif",
                                 }}
                               >
                                 {classItem.instructor}
                               </div>
+
                               {classItem.isAdvanced && (
-                                <div className="text-[11px] mt-1" style={goldTextStyle}>
+                                <div
+                                  className="text-[11px] mt-1 shrink-0"
+                                  style={goldTextStyle}
+                                >
                                   (ADV CLASS)
                                 </div>
                               )}
@@ -509,7 +557,9 @@ export default function App() {
               <div>
                 <h3
                   className="text-gray-800 tracking-wider mb-3 flex items-center gap-2 text-base font-semibold"
-                  style={{ fontFamily: "'Montserrat','Inter',ui-sans-serif" }}
+                  style={{
+                    fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                  }}
                 >
                   <span>📋</span> CLASS RULES
                 </h3>
@@ -533,7 +583,9 @@ export default function App() {
               <div>
                 <h3
                   className="text-gray-800 tracking-wider mb-3 flex items-center gap-2 text-base font-semibold"
-                  style={{ fontFamily: "'Montserrat','Inter',ui-sans-serif" }}
+                  style={{
+                    fontFamily: "'Montserrat','Inter',ui-sans-serif",
+                  }}
                 >
                   <span>📍</span> CONTACT INFO
                 </h3>
@@ -550,7 +602,6 @@ export default function App() {
           </div>
         </div>
       </div>
-      {/* END poster */}
     </div>
   );
 }
