@@ -163,7 +163,7 @@ function renderClassName(name, goldTextStyle) {
   if (!match) {
     return (
       <span
-        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-3"
+        className="block text-[11px] font-extrabold leading-snug tracking-wide break-words line-clamp-3"
         style={goldTextStyle}
       >
         {name}
@@ -173,13 +173,13 @@ function renderClassName(name, goldTextStyle) {
   return (
     <>
       <span
-        className="block text-[13px] font-extrabold leading-snug tracking-wide break-words line-clamp-2"
+        className="block text-[11px] font-extrabold leading-snug tracking-wide break-words line-clamp-2"
         style={goldTextStyle}
       >
         {match[1]}
       </span>
       <span
-        className="block text-[10px] font-semibold leading-snug tracking-wide mt-0.5 line-clamp-1"
+        className="block text-[8px] font-semibold leading-snug tracking-wide mt-0.5 line-clamp-1"
         style={goldTextStyle}
       >
         {match[2]}
