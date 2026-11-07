@@ -13,7 +13,7 @@ const initialSchedule = [
     date: "10 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SHIV" },
-      { time: "07:15 - 08:45", name: "ADVANCE CLASS", instructor: "SINGH" },
+      { time: "07:15 - 08:45", name: "ADVANCE CLASS (DROP IN 250K) (lầu 4)", instructor: "SINGH" },
       { time: "11:45 - 12:45", name: "HATHA YOGA (lầu 4)", instructor: "Cô Tư" },
       { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
