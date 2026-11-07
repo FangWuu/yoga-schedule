@@ -12,9 +12,9 @@ const initialSchedule = [
     day: "MON",
     date: "10 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SINGH" },
-      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
-      "OFF",
+      { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SHIV" },
+      { time: "09:00 - 10:00", name: "ADVANCE CLASS", instructor: "SINGH" },
+      { time: "11:45 - 12:45", name: "HATHA YOGA (lầu 4)", instructor: "Cô Tư" },
       { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
     ],
@@ -23,11 +23,11 @@ const initialSchedule = [
     day: "TUE",
     date: "11 AUG",
     classes: [
-      { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SHIV" },
+      { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SINGH" },
       "OFF",
       {
         time: "09:00 - 11:00",
-        name: "ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
       { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" },
@@ -39,12 +39,12 @@ const initialSchedule = [
     date: "12 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "HIP OPENING", instructor: "SINGH" },
-      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       {
         time: "09:00 - 11:00",
-        name: "ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      { time: "11:45 - 12:45", name: "HATHA YOGA (lầu 4)", instructor: "Cô Tư" },
       { time: "15:00 - 16:00", name: "HATHA YOGA", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "ZULKA" },
     ],
@@ -57,7 +57,7 @@ const initialSchedule = [
       "OFF",
       {
         time: "09:00 - 11:00",
-        name: "ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
       {
@@ -73,12 +73,12 @@ const initialSchedule = [
     date: "14 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "RANA" },
-      { time: "09:00 - 10:00", name: "HATHA YOGA", instructor: "Lầu 4" },
       {
         time: "09:00 - 11:00",
-        name: "ASHTANGA (150 min) (DROP IN 300K)",
+        name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      { time: "11:45 - 12:45", name: "HATHA YOGA (lầu 4)", instructor: "Cô Tư" },
       {
         time: "15:00 - 16:00",
         name: "SHOULDER OPENING & BACK BENDING",
@@ -99,9 +99,8 @@ const initialSchedule = [
       "OFF",
       {
         time: "09:00 - 11:00",
-        name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
+        name: "ASHTANGA (120 min) (DROP IN 500K)",
         instructor: "ADITYA",
-        isAdvanced: true,
       },
       {
         time: "15:00 - 16:00",
@@ -118,9 +117,8 @@ const initialSchedule = [
       "OFF",
       {
         time: "09:00 - 11:00",
-        name: "ADVANCE CLASS (150 min) (DROP IN 500K)",
+        name: "ASHTANGA (120 min) (DROP IN 500K)",
         instructor: "ADITYA",
-        isAdvanced: true,
       },
       "OFF",
     ],
