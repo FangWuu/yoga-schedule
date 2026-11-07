@@ -13,7 +13,7 @@ const initialSchedule = [
     date: "10 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "INVERSION YOGA", instructor: "SHIV" },
-      { time: "09:00 - 10:00", name: "ADVANCE CLASS", instructor: "SINGH" },
+      { time: "07:15 - 08:45", name: "ADVANCE CLASS", instructor: "SINGH" },
       { time: "11:45 - 12:45", name: "HATHA YOGA (lầu 4)", instructor: "Cô Tư" },
       { time: "15:00 - 16:00", name: "BACK & TWIST", instructor: "SINGH" },
       { time: "18:00 - 19:00", name: "BACK BENDING", instructor: "SHIV" },
@@ -24,12 +24,12 @@ const initialSchedule = [
     date: "11 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "STICK YOGA", instructor: "SINGH" },
-      "OFF",
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      "OFF",
       { time: "15:00 - 16:00", name: "SHOULDER OPENING", instructor: "SHIV" },
       { time: "18:00 - 19:00", name: "BLOCK YOGA", instructor: "SINGH" },
     ],
@@ -54,12 +54,12 @@ const initialSchedule = [
     date: "13 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "BACK BENDING", instructor: "SINGH" },
-      "OFF",
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (120 min) (DROP IN 300K)",
         instructor: "ADITYA",
       },
+      "OFF",
       {
         time: "15:00 - 16:00",
         name: "HIP OPENING WITH BLOCK",
@@ -96,12 +96,12 @@ const initialSchedule = [
     date: "15 AUG",
     classes: [
       { time: "07:15 - 08:15", name: "BACK & TWIST", instructor: "SINGH" },
-      "OFF",
       {
         time: "09:00 - 11:00",
         name: "ASHTANGA (120 min) (DROP IN 500K)",
         instructor: "ADITYA",
       },
+      "OFF",
       {
         time: "15:00 - 16:00",
         name: "ARM BALANCE & CORE POWER",
